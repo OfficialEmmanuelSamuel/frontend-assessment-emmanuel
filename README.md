@@ -81,7 +81,25 @@ TMDB_BASE_URL=https://api.themoviedb.org/3
 ### F-5 Deployment
 
 - Target platform: Cloudflare Workers (preferred) or Vercel.
+- Cloudflare/OpenNext stack configured in this repo:
+  - `wrangler.jsonc`
+  - `open-next.config.ts`
+  - `public/_headers` (static cache headers)
+  - scripts: `preview`, `deploy`, `upload`, `cf-typegen`
 - Current status: add live URL before final submission.
+
+## Cloudflare Deployment
+
+1. Authenticate Wrangler:
+   - `npx wrangler login`
+2. Set required secrets:
+   - `npx wrangler secret put TMDB_API_KEY`
+   - `npx wrangler secret put TMDB_BASE_URL`
+3. Preview locally in Workers runtime:
+   - `npm run preview`
+4. Deploy:
+   - `npm run deploy`
+   
 
 ## Architecture Decisions
 
@@ -138,4 +156,3 @@ npm run test
 ## Bonus Tasks Attempted
 
 - None yet.
-
