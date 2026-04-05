@@ -33,7 +33,7 @@ export default function SearchBar() {
   return (
     <input
       placeholder="Search movies..."
-      className="w-full rounded-xl font-quicksand shadow-sm shadow-gray-600 bg-white px-4 py-3 text-sm text-slate-700 placeholder:text-slate-400 focus:border-sky-400 focus:outline-none"
+      className="w-full rounded-xl font-quicksand shadow-sm shadow-gray-600 bg-white px-4 py-3 text-base text-slate-700 placeholder:text-slate-400 focus:border-sky-400 focus:outline-none"
       value={query}
       onChange={(e) => setQuery(e.target.value)}
     />
