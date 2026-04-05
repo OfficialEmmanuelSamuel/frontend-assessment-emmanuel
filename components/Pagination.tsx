@@ -8,6 +8,7 @@ type Props = {
 };
 
 export default function Pagination({ page, totalPages, search, year }: Props) {
+  // Preserve active filters while navigating between pages.
   const createHref = (nextPage: number) => {
     const params = new URLSearchParams();
     params.set("page", String(nextPage));

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Lato, Quicksand } from "next/font/google";
 import "./globals.css";
 
+// Brand fonts are loaded once in the root layout and exposed as CSS variables.
 const quicksand = Quicksand({
   variable: "--font-quicksand",
   subsets: ["latin"],
@@ -13,6 +14,7 @@ const lato = Lato({
   subsets: ["latin"],
 });
 
+// Global metadata used as defaults for all routes.
 export const metadata: Metadata = {
   title: {
     default: "Emanel MovieRoom",
@@ -28,6 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    // Font variables are attached to html so utility classes can consume them project-wide.
     <html
       lang="en"
       className={`${quicksand.variable} ${lato.variable} h-full antialiased`}

@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import Pagination from "./Pagination";
 import type { ReactNode } from "react";
 
+// Mock next/link as a plain anchor for deterministic unit assertions.
 vi.mock("next/link", () => ({
   default: ({
     href,

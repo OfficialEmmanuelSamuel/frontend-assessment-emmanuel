@@ -7,11 +7,13 @@ export default function Filters() {
   const params = useSearchParams();
 
   const handleYear = (year: string) => {
+    // Clone current params so search text stays intact while year filter changes.
     const newParams = new URLSearchParams(params.toString());
 
     if (year) newParams.set("year", year);
     else newParams.delete("year");
 
+    // Always restart from page 1 when filters change to avoid invalid page states.
     newParams.set("page", "1");
 
     const queryString = newParams.toString();

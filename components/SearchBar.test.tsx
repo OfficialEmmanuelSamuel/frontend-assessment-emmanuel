@@ -1,11 +1,13 @@
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import SearchBar from "./SearchBar";
 
+// Hoisted refs allow each test case to control router and query-string behavior.
 const navigationMocks = vi.hoisted(() => ({
   replace: vi.fn(),
   queryString: "",
 }));
 
+// Mock next/navigation hooks used by SearchBar.
 vi.mock("next/navigation", () => ({
   useRouter: () => ({
     replace: navigationMocks.replace,

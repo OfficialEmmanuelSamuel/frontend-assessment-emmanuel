@@ -1,5 +1,6 @@
 export default function Loading() {
   return (
+    // Skeleton placeholders keep layout stable while the movie list is fetching.
     <div className="p-6 space-y-4 animate-pulse">
       <div className="h-10 w-full rounded bg-gray-200" />
       <div className="h-10 w-40 rounded bg-gray-200" />

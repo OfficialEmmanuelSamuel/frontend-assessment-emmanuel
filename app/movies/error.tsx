@@ -1,6 +1,7 @@
 "use client";
 
 type Props = {
+  // Next.js passes the thrown error and a reset callback to route error boundaries.
   error: Error;
   reset: () => void;
 };

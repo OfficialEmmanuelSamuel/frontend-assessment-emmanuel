@@ -1,20 +1,26 @@
 {
+  // Cloudflare Worker runtime schema for validation and editor hints.
   "$schema": "node_modules/wrangler/config-schema.json",
+  // OpenNext build output entrypoint consumed by Wrangler.
   "main": ".open-next/worker.js",
   "name": "frontend-assessment-emmanuel",
   "compatibility_date": "2026-04-05",
+  // Enable Node compatibility and strict fetch behavior in the Worker runtime.
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
+    // Serve static Next assets from OpenNext output.
     "directory": ".open-next/assets",
     "binding": "ASSETS"
   },
   "services": [
     {
+      // Internal service binding used by OpenNext routing/runtime features.
       "binding": "WORKER_SELF_REFERENCE",
       "service": "frontend-assessment-emmanuel"
     }
   ],
   "images": {
+    // Cloudflare Images binding used by Next image optimization in production.
     "binding": "IMAGES"
   },
   "observability": {

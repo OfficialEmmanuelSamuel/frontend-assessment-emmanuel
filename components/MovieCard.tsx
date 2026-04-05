@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Movie } from "@/types/movie";
 
 export default function MovieCard({ movie }: { movie: Movie }) {
+  // Display a lightweight year fallback when release date is missing.
   const releaseYear = movie.release_date?.slice(0, 4) || "N/A";
 
   return (

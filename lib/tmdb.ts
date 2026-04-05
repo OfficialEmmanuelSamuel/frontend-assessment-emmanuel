@@ -1,5 +1,6 @@
 import { Movie, MoviesResponse } from "@/types/movie";
 
+// Runtime environment variables for TMDB requests.
 const API_KEY = process.env.TMDB_API_KEY!;
 const BASE_URL = process.env.TMDB_BASE_URL!;
 
@@ -8,6 +9,7 @@ export async function getMovies(
   search?: string,
   year?: string
 ): Promise<MoviesResponse> {
+  // Use TMDB search endpoint when a query exists.
   if (search) {
     const searchUrl = new URL(`${BASE_URL}/search/movie`);
     searchUrl.searchParams.set("api_key", API_KEY);
@@ -24,6 +26,7 @@ export async function getMovies(
     return res.json();
   }
 
+  // Otherwise fall back to discover endpoint for general browsing.
   const url = new URL(`${BASE_URL}/discover/movie`);
   url.searchParams.set("api_key", API_KEY);
   url.searchParams.set("page", String(page));
@@ -42,6 +45,7 @@ export async function getMovies(
 }
 
 export async function getMovie(id: string): Promise<Movie> {
+  // Movie detail requests are uncached to keep detail pages fresh.
   const res = await fetch(
     `${BASE_URL}/movie/${id}?api_key=${API_KEY}`,
     { cache: "no-store" }

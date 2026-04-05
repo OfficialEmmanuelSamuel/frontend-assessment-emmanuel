@@ -6,6 +6,7 @@ import Filters from "@/components/Filters";
 import EmptyState from "@/components/EmptyState";
 
 type Props = {
+  // In this Next.js version, route search params are asynchronous in page props.
   searchParams: Promise<{
     page?: string | string[];
     search?: string | string[];
@@ -14,15 +15,18 @@ type Props = {
 };
 
 export default async function MoviesPage({ searchParams }: Props) {
+  // Normalize possible array query values down to a single string value.
   const params = await searchParams;
   const readParam = (value?: string | string[]) =>
     Array.isArray(value) ? value[0] : value;
 
+  // Sanitize and default user-controlled query parameters.
   const pageValue = Number(readParam(params.page));
   const page = Number.isFinite(pageValue) && pageValue > 0 ? pageValue : 1;
   const search = readParam(params.search)?.trim();
   const year = readParam(params.year)?.trim();
 
+  // Fetch a paginated movie result set based on active filters.
   const data = await getMovies(page, search, year);
   const resultCount = data.results.length;
 
@@ -55,19 +59,20 @@ export default async function MoviesPage({ searchParams }: Props) {
           </p>
         </section>
 
-      {data.results.length ? (
-        <>
-          <MovieGrid movies={data.results} />
-          <Pagination
-            page={page}
-            totalPages={data.total_pages}
-            search={search}
-            year={year}
-          />
-        </>
-      ) : (
-        <EmptyState />
-      )}
+        {/* Render list + pager for matches, otherwise show empty-state guidance. */}
+        {data.results.length ? (
+          <>
+            <MovieGrid movies={data.results} />
+            <Pagination
+              page={page}
+              totalPages={data.total_pages}
+              search={search}
+              year={year}
+            />
+          </>
+        ) : (
+          <EmptyState />
+        )}
       </div>
     </div>
   );

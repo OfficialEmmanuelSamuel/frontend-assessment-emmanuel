@@ -1,3 +1,4 @@
+// Core movie model used by listing and detail pages.
 export type Movie = {
   id: number;
   title: string;
@@ -8,6 +9,7 @@ export type Movie = {
   overview?: string;
 };
 
+// Shape of paginated TMDB movie list responses.
 export type MoviesResponse = {
   page: number;
   results: Movie[];

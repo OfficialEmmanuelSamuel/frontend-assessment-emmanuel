@@ -8,6 +8,7 @@ export default function SearchBar() {
   const router = useRouter();
   const params = useSearchParams();
   const [query, setQuery] = useState<string>(params.get("search") ?? "");
+  // Debounce reduces route updates while users type.
   const debouncedQuery = useDebounce(query, 400);
 
   useEffect(() => {
@@ -23,6 +24,7 @@ export default function SearchBar() {
     if (trimmedQuery) newParams.set("search", trimmedQuery);
     else newParams.delete("search");
 
+    // New search context starts from the first page.
     newParams.set("page", "1");
     const queryString = newParams.toString();
     router.replace(`/movies${queryString ? `?${queryString}` : ""}`, {

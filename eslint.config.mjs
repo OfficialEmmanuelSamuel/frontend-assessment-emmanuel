@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
+// Merge Next.js recommended lint presets and explicitly control ignores.
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,

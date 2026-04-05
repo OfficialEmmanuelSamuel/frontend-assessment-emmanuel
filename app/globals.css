@@ -2,14 +2,17 @@
 
 @import "tailwindcss";
 
+/* Base theme color tokens used across the app. */
 :root {
   --background: #f8fbff;
   --foreground: #16324f;
 }
+/* Register project fonts as Tailwind theme variables. */
 @theme{
     --font-quicksand: Quicksand, "sans-serif";
 }
 
+/* Map custom tokens to Tailwind semantic variables. */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -17,11 +20,13 @@
   --font-heading: var(--font-lato);
 }
 
+/* Apply site-wide colors to the document body. */
 body {
   background: var(--background);
   color: var(--foreground);
 }
 
+/* Use the heading font family for all heading levels. */
 h1,
 h2,
 h3,

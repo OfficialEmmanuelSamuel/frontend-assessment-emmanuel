@@ -4,13 +4,16 @@ import Link from "next/link";
 import { getMovie } from "@/lib/tmdb";
 
 type Props = {
+  // In this Next.js version, route params are provided as a Promise in page props.
   params: Promise<{ id: string }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  // Resolve the dynamic segment and fetch movie data for SEO metadata.
   const { id } = await params;
   const movie = await getMovie(id);
 
+  // Provide sensible fallbacks when overview or poster is missing.
   const description =
     movie.overview || `Read details for ${movie.title} on Emanel MovieRoom.`;
   const image = movie.poster_path
@@ -29,14 +32,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MovieDetail({ params }: Props) {
+  // Fetch the movie once for page rendering.
   const { id } = await params;
   const movie = await getMovie(id);
+
+  // Build image URLs with graceful fallback from backdrop to poster.
   const posterUrl = movie.poster_path
     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
     : null;
   const backdropUrl = movie.backdrop_path
     ? `https://image.tmdb.org/t/p/w1280${movie.backdrop_path}`
     : posterUrl;
+
+  // Extract the display year while guarding against empty release dates.
   const releaseYear = movie.release_date?.slice(0, 4) || "Unknown";
 
   return (
@@ -63,6 +71,7 @@ export default async function MovieDetail({ params }: Props) {
                 className="object-cover opacity-80"
               />
             ) : (
+              // Keep structure stable when no backdrop exists.
               <div className="h-full w-full bg-sky-100" />
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-white via-white/75 to-transparent" />
@@ -79,6 +88,7 @@ export default async function MovieDetail({ params }: Props) {
                   className="object-cover"
                 />
               ) : (
+                // Friendly empty-state when poster art is unavailable.
                 <div className="flex h-full items-center justify-center text-sm text-slate-500">
                   No poster available
                 </div>
